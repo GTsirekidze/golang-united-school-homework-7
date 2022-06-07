@@ -44,7 +44,10 @@ func TestNewMatrix(t *testing.T) {
 
 
 3`, Err: errors.New("too much spaces between numbers")},
+		{text: `-1 4 0
+2 -5 6`, Expected: Matrix{rows: 2, cols: 3, data: []int{-1, 4, 0, 2, -5, 6}}},
 	}
+
 	for _, v := range tData {
 		got, err := New(v.text)
 
@@ -90,8 +93,11 @@ func TestGetRows(t *testing.T) {
 		Err      error
 	}{
 		{matrix: Matrix{rows: 1, cols: 1, data: []int{1}}, Expected: [][]int{{1}}},
-		{matrix: Matrix{rows: 1, cols: 5, data: []int{1, 2, 3, 4, 5}}, Expected: [][]int{{1, 2, 3, 4, 5}}},
-		{matrix: Matrix{rows: 3, cols: 3, data: []int{1, 4, 5, 2, 5, 6, 3, 7, 8}}, Expected: [][]int{{1, 4, 5}, {2, 5, 6}, {3, 7, 8}}},
+		{matrix: Matrix{rows: 1, cols: 1, data: []int{-999999999}}, Expected: [][]int{{-999999999}}},
+		{matrix: Matrix{rows: 1, cols: 5, data: []int{-1, 2, 5555553, 4, 5}}, Expected: [][]int{{-1, 2, 5555553, 4, 5}}},
+		{matrix: Matrix{rows: 3, cols: 3, data: []int{1, 4, 5, 2, 5, 0, 3, 7, -8}}, Expected: [][]int{{1, 4, 5}, {2, 5, 0}, {3, 7, -8}}},
+		{matrix: Matrix{rows: 5, cols: 1, data: []int{-1, 2, 5555553, 4, 5}}, Expected: [][]int{{-1}, {2}, {5555553}, {4}, {5}}},
+		{matrix: Matrix{rows: 3, cols: 3, data: []int{1, 4, 5, 2, 5, 0, 3, 7, -8}}, Expected: [][]int{{1, 4, 5}, {2, 5, 0}, {3, 7, -8}}},
 		{matrix: Matrix{rows: 0, cols: 0, data: []int{}}, Expected: nil},
 	}
 	for _, v := range tData {
@@ -117,6 +123,9 @@ func TestGetColumns(t *testing.T) {
 		{matrix: Matrix{rows: 1, cols: 5, data: []int{1, 2, 3, 4, 5}}, Expected: [][]int{{1}, {2}, {3}, {4}, {5}}},
 		{matrix: Matrix{rows: 3, cols: 3, data: []int{1, 4, 5, 2, 5, 6, 3, 7, 8}}, Expected: [][]int{{1, 2, 3}, {4, 5, 7}, {5, 6, 8}}},
 		{matrix: Matrix{rows: 0, cols: 0, data: []int{}}, Expected: nil},
+		{matrix: Matrix{rows: 1, cols: 1, data: []int{-5551}}, Expected: [][]int{{-5551}}},
+		{matrix: Matrix{rows: 5, cols: 1, data: []int{0, 2, -3, 4, 999999999}}, Expected: [][]int{{0, 2, -3, 4, 999999999}}},
+		{matrix: Matrix{rows: 2, cols: 3, data: []int{1, 4, 5, -999999999, 5, 6}}, Expected: [][]int{{1, -999999999}, {4, 5}, {5, 6}}},
 	}
 	for _, v := range tData {
 		got := v.matrix.Cols()
@@ -183,11 +192,26 @@ func TestLenPeople(t *testing.T) {
 			Person{firstName: "Larry", lastName: "dane", birthDay: time.Date(2012, 4, 10, 0, 0, 0, 0, time.UTC)},
 		}, length: 2},
 		{people: People{
+			Person{firstName: "Bfgan", lastName: "dagbfne", birthDay: time.Date(2000, 1, 7, 0, 0, 0, 0, time.UTC)},
+			Person{firstName: "Larfngnry", lastName: "dannfge", birthDay: time.Date(2020, 2, 10, 0, 0, 0, 0, time.UTC)},
+			Person{firstName: "Largfry", lastName: "dcfane", birthDay: time.Date(2008, 3, 10, 0, 0, 0, 0, time.UTC)},
+		}, length: 3},
+		{people: People{
 			Person{firstName: "Magic", lastName: "Johnson", birthDay: time.Date(1999, 5, 22, 0, 0, 0, 0, time.UTC)},
 			Person{firstName: "Gigi", lastName: "Tsirekdze", birthDay: time.Date(1990, 1, 15, 0, 0, 0, 0, time.UTC)},
 			Person{firstName: "Gega", lastName: "falavandishvili", birthDay: time.Date(2007, 9, 26, 0, 0, 0, 0, time.UTC)},
 			Person{firstName: "tornike", lastName: "Gvari", birthDay: time.Date(1969, 4, 12, 0, 0, 0, 0, time.UTC)},
 		}, length: 4},
+		{people: People{
+			Person{firstName: "Maghdgic", lastName: "Johngdnson", birthDay: time.Date(199, 0, 22, 0, 0, 0, 0, time.UTC)},
+			Person{firstName: "Gngdnigi", lastName: "Tsingdnrekdze", birthDay: time.Date(1990, 1, 15, 0, 0, 0, 0, time.UTC)},
+			Person{firstName: "Gedfbfga", lastName: "fandgnlavandishvili", birthDay: time.Date(2007, 9, 26, 0, 0, 0, 0, time.UTC)},
+			Person{firstName: "torfgbnike", lastName: "Gndhgnvari", birthDay: time.Date(1969, 13, 12, 0, 0, 0, 0, time.UTC)},
+			Person{firstName: "Mngdnagic", lastName: "Jondghnhdhnson", birthDay: time.Date(1800, 5, 22, 0, 0, 0, 0, time.UTC)},
+			Person{firstName: "ngdGigi", lastName: "Tsigndrekdze", birthDay: time.Date(190, 1, 15, 0, 0, 0, 0, time.UTC)},
+			Person{firstName: "2Gengfdnga", lastName: "falavngfndandishvili", birthDay: time.Date(2007, 9, 26, 0, 0, 0, 0, time.UTC)},
+			Person{firstName: "torndgfnnike", lastName: "Gvngdngdari", birthDay: time.Date(1969, 4, 12, 0, 0, 0, 0, time.UTC)},
+		}, length: 8},
 	}
 
 	for _, v := range tData {
@@ -227,6 +251,18 @@ func TestLessPeople(t *testing.T) {
 			Person{firstName: "Gega", lastName: "falavandishvili", birthDay: time.Date(2007, 9, 26, 0, 0, 0, 0, time.UTC)},
 			Person{firstName: "tornike", lastName: "Gvari", birthDay: time.Date(1969, 4, 12, 0, 0, 0, 0, time.UTC)},
 		}, i: 3, j: 0, isLess: false},
+		{people: People{
+			Person{firstName: "Magic", lastName: "Johnson", birthDay: time.Date(1999, 5, 22, 0, 0, 0, 0, time.UTC)},
+			Person{firstName: "Gigi", lastName: "Tsirekdze", birthDay: time.Date(1990, 1, 15, 0, 0, 0, 0, time.UTC)},
+			Person{firstName: "Gega", lastName: "falavandishvili", birthDay: time.Date(2007, 9, 26, 0, 0, 0, 0, time.UTC)},
+			Person{firstName: "tornike", lastName: "Gvari", birthDay: time.Date(1969, 4, 12, 0, 0, 0, 0, time.UTC)},
+		}, i: 2, j: 1, isLess: false},
+		{people: People{
+			Person{firstName: "Magic", lastName: "Johnson", birthDay: time.Date(1999, 5, 22, 0, 0, 0, 0, time.UTC)},
+			Person{firstName: "Gigi", lastName: "Tsirekdze", birthDay: time.Date(1990, 1, 15, 0, 0, 0, 0, time.UTC)},
+			Person{firstName: "Gega", lastName: "falavandishvili", birthDay: time.Date(2007, 9, 26, 0, 0, 0, 0, time.UTC)},
+			Person{firstName: "tornike", lastName: "Gvari", birthDay: time.Date(1969, 4, 12, 0, 0, 0, 0, time.UTC)},
+		}, i: 2, j: 1, isLess: false},
 	}
 
 	for _, v := range tData {
@@ -263,13 +299,38 @@ func TestSwapPeople(t *testing.T) {
 			Person{firstName: "Gigi", lastName: "Tsirekdze", birthDay: time.Date(1990, 1, 15, 0, 0, 0, 0, time.UTC)},
 			Person{firstName: "Gega", lastName: "falavandishvili", birthDay: time.Date(2007, 9, 26, 0, 0, 0, 0, time.UTC)},
 			Person{firstName: "tornike", lastName: "Gvari", birthDay: time.Date(1969, 4, 12, 0, 0, 0, 0, time.UTC)},
-		}, i: 2, j: 0},
+		}, i: 1, j: 3},
 		{people: People{
 			Person{firstName: "Magic", lastName: "Johnson", birthDay: time.Date(1999, 5, 22, 0, 0, 0, 0, time.UTC)},
 			Person{firstName: "Gigi", lastName: "Tsirekdze", birthDay: time.Date(1990, 1, 15, 0, 0, 0, 0, time.UTC)},
 			Person{firstName: "Gega", lastName: "falavandishvili", birthDay: time.Date(2007, 9, 26, 0, 0, 0, 0, time.UTC)},
 			Person{firstName: "tornike", lastName: "Gvari", birthDay: time.Date(1969, 4, 12, 0, 0, 0, 0, time.UTC)},
-		}, i: 3, j: 0},
+		}, i: 1, j: 2},
+		{people: People{
+			Person{firstName: "Magic", lastName: "Johnson", birthDay: time.Date(1999, 5, 22, 0, 0, 0, 0, time.UTC)},
+			Person{firstName: "Gigi", lastName: "Tsirekdze", birthDay: time.Date(1990, 1, 15, 0, 0, 0, 0, time.UTC)},
+			Person{firstName: "Gega", lastName: "falavandishvili", birthDay: time.Date(2007, 9, 26, 0, 0, 0, 0, time.UTC)},
+			Person{firstName: "tornike", lastName: "Gvari", birthDay: time.Date(1969, 4, 12, 0, 0, 0, 0, time.UTC)},
+		}, i: 2, j: 1},
+		{people: People{
+			Person{firstName: "Magic", lastName: "Johnson", birthDay: time.Date(1999, 5, 22, 0, 0, 0, 0, time.UTC)},
+			Person{firstName: "Gigi", lastName: "Tsirekdze", birthDay: time.Date(1990, 1, 15, 0, 0, 0, 0, time.UTC)},
+			Person{firstName: "Gega", lastName: "falavandishvili", birthDay: time.Date(2007, 9, 26, 0, 0, 0, 0, time.UTC)},
+			Person{firstName: "tornike", lastName: "Gvari", birthDay: time.Date(1969, 4, 12, 0, 0, 0, 0, time.UTC)},
+		}, i: 0, j: 2},
+		{people: People{
+			Person{firstName: "Magic", lastName: "Johnson", birthDay: time.Date(1999, 5, 22, 0, 0, 0, 0, time.UTC)},
+			Person{firstName: "Gigi", lastName: "Tsirekdze", birthDay: time.Date(1990, 1, 15, 0, 0, 0, 0, time.UTC)},
+			Person{firstName: "Gega", lastName: "falavandishvili", birthDay: time.Date(2007, 9, 26, 0, 0, 0, 0, time.UTC)},
+			Person{firstName: "tornike", lastName: "Gvari", birthDay: time.Date(1969, 4, 12, 0, 0, 0, 0, time.UTC)},
+			Person{firstName: "Maghdgic", lastName: "Johngdnson", birthDay: time.Date(199, 0, 22, 0, 0, 0, 0, time.UTC)},
+			Person{firstName: "Gngdnigi", lastName: "Tsingdnrekdze", birthDay: time.Date(1990, 1, 15, 0, 0, 0, 0, time.UTC)},
+			Person{firstName: "Gedfbfga", lastName: "fandgnlavandishvili", birthDay: time.Date(2007, 9, 26, 0, 0, 0, 0, time.UTC)},
+			Person{firstName: "torfgbnike", lastName: "Gndhgnvari", birthDay: time.Date(1969, 13, 12, 0, 0, 0, 0, time.UTC)},
+			Person{firstName: "Mngdnagic", lastName: "Jondghnhdhnson", birthDay: time.Date(1800, 5, 22, 0, 0, 0, 0, time.UTC)},
+			Person{firstName: "ngdGigi", lastName: "Tsigndrekdze", birthDay: time.Date(190, 1, 15, 0, 0, 0, 0, time.UTC)},
+			Person{firstName: "2Gengfdnga", lastName: "falavngfndandishvili", birthDay: time.Date(2007, 9, 26, 0, 0, 0, 0, time.UTC)},
+		}, i: 0, j: 6},
 	}
 
 	for _, v := range tData {
