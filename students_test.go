@@ -110,6 +110,7 @@ func TestGetRows(t *testing.T) {
 			} else {
 				t.Errorf("Expected: [%d] Got: [%d]", expectedNumber, gotNumber)
 			}
+
 		}
 	}
 }
@@ -261,8 +262,16 @@ func TestLessPeople(t *testing.T) {
 			Person{firstName: "Magic", lastName: "Johnson", birthDay: time.Date(1999, 5, 22, 0, 0, 0, 0, time.UTC)},
 			Person{firstName: "Gigi", lastName: "Tsirekdze", birthDay: time.Date(1990, 1, 15, 0, 0, 0, 0, time.UTC)},
 			Person{firstName: "Gega", lastName: "falavandishvili", birthDay: time.Date(2007, 9, 26, 0, 0, 0, 0, time.UTC)},
+			Person{firstName: "Magic", lastName: "Johnson", birthDay: time.Date(1999, 5, 22, 0, 0, 0, 0, time.UTC)},
 			Person{firstName: "tornike", lastName: "Gvari", birthDay: time.Date(1969, 4, 12, 0, 0, 0, 0, time.UTC)},
-		}, i: 2, j: 1, isLess: true},
+		}, i: 0, j: 3, isLess: false},
+		{people: People{
+			Person{firstName: "Magic", lastName: "Johnson", birthDay: time.Date(1999, 5, 22, 0, 0, 0, 0, time.UTC)},
+			Person{firstName: "Gigi", lastName: "Tsirekdze", birthDay: time.Date(1990, 1, 15, 0, 0, 0, 0, time.UTC)},
+			Person{firstName: "Gega", lastName: "falavandishvili", birthDay: time.Date(2007, 9, 26, 0, 0, 0, 0, time.UTC)},
+			Person{firstName: "AMagic", lastName: "Johnson", birthDay: time.Date(1999, 5, 22, 0, 0, 0, 0, time.UTC)},
+			Person{firstName: "tornike", lastName: "Gvari", birthDay: time.Date(1969, 4, 12, 0, 0, 0, 0, time.UTC)},
+		}, i: 0, j: 3, isLess: false},
 	}
 
 	for k, v := range tData {
