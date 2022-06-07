@@ -257,13 +257,19 @@ func TestLessPeople(t *testing.T) {
 			Person{firstName: "Gega", lastName: "falavandishvili", birthDay: time.Date(2007, 9, 26, 0, 0, 0, 0, time.UTC)},
 			Person{firstName: "tornike", lastName: "Gvari", birthDay: time.Date(1969, 4, 12, 0, 0, 0, 0, time.UTC)},
 		}, i: 2, j: 1, isLess: false},
+		{people: People{
+			Person{firstName: "Magic", lastName: "Johnson", birthDay: time.Date(1999, 5, 22, 0, 0, 0, 0, time.UTC)},
+			Person{firstName: "Gigi", lastName: "Tsirekdze", birthDay: time.Date(1990, 1, 15, 0, 0, 0, 0, time.UTC)},
+			Person{firstName: "Gega", lastName: "falavandishvili", birthDay: time.Date(2007, 9, 26, 0, 0, 0, 0, time.UTC)},
+			Person{firstName: "tornike", lastName: "Gvari", birthDay: time.Date(1969, 4, 12, 0, 0, 0, 0, time.UTC)},
+		}, i: 2, j: 1, isLess: false},
 	}
 
-	for _, v := range tData {
+	for k, v := range tData {
 		got := v.people.Less(v.i, v.j)
 		if got != v.isLess {
 			if got {
-				t.Errorf("Expected: false Got: true")
+				t.Errorf("%d Expected: false Got: true", k)
 			} else {
 				t.Errorf("Expected: true Got: false")
 			}
@@ -317,7 +323,14 @@ func TestSwapPeople(t *testing.T) {
 			Person{firstName: "Gigi", lastName: "Tsirekdze", birthDay: time.Date(1990, 1, 15, 0, 0, 0, 0, time.UTC)},
 			Person{firstName: "Gega", lastName: "falavandishvili", birthDay: time.Date(2007, 9, 26, 0, 0, 0, 0, time.UTC)},
 			Person{firstName: "tornike", lastName: "Gvari", birthDay: time.Date(1969, 4, 12, 0, 0, 0, 0, time.UTC)},
-		}, i: 0, j: 0},
+			Person{firstName: "Maghdgic", lastName: "Johngdnson", birthDay: time.Date(199, 0, 22, 0, 0, 0, 0, time.UTC)},
+			Person{firstName: "Gngdnigi", lastName: "Tsingdnrekdze", birthDay: time.Date(1990, 1, 15, 0, 0, 0, 0, time.UTC)},
+			Person{firstName: "Gedfbfga", lastName: "fandgnlavandishvili", birthDay: time.Date(2007, 9, 26, 0, 0, 0, 0, time.UTC)},
+			Person{firstName: "torfgbnike", lastName: "Gndhgnvari", birthDay: time.Date(1969, 13, 12, 0, 0, 0, 0, time.UTC)},
+			Person{firstName: "Mngdnagic", lastName: "Jondghnhdhnson", birthDay: time.Date(1800, 5, 22, 0, 0, 0, 0, time.UTC)},
+			Person{firstName: "ngdGigi", lastName: "Tsigndrekdze", birthDay: time.Date(190, 1, 15, 0, 0, 0, 0, time.UTC)},
+			Person{firstName: "2Gengfdnga", lastName: "falavngfndandishvili", birthDay: time.Date(2007, 9, 26, 0, 0, 0, 0, time.UTC)},
+		}, i: 0, j: 6},
 	}
 
 	for _, v := range tData {
